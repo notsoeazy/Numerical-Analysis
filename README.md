@@ -7,6 +7,7 @@ This repository serves as a collection of numerical methods used to find roots o
 
 - 🔹 **Bisection Method**
 - 🔹 **Regula Falsi Method**
+- 🔹 **Newton Raphson Method**
 
 Each method is implemented with clear structure and comments to ensure readability and ease of understanding.
 
@@ -19,6 +20,9 @@ Each method is implemented with clear structure and comments to ensure readabili
  ┣ 📂 Regula-Falsi
  ┃ ┣ 📜 regula_falsi.cpp
  ┃ ┣ 📜 regula_falsi.exe
+ ┣ 📂 Newton-Raphson
+ ┃ ┣ 📜 newton-raphson.cpp
+ ┃ ┣ 📜 newton-raphson.exe
  ┣ 📜 README.md
 ```
 
@@ -27,11 +31,12 @@ To run the numerical methods, simply execute the corresponding executable files:
 ```bash
 ./Bisection-Method/bisection_method.exe
 ./Regula-Falsi/regula_falsi.exe
+./Newton-Raphson/newton_raphson.exe
 ```
 Ensure you have the necessary environment to run compiled C++ programs.
 
 ## 📌 Future Additions
-✅ More numerical methods such as Newton-Raphson and Secant Method.
+✅ More numerical methods such as Secant Method.
 ✅ Improved visualizations for results.
 
 ## 💡 Contributions
