@@ -21,8 +21,8 @@ Each method is implemented with clear structure and comments to ensure readabili
  ┃ ┣ 📜 regula_falsi.cpp
  ┃ ┣ 📜 regula_falsi.exe
  ┣ 📂 Newton-Raphson
- ┃ ┣ 📜 newton_raphson.cpp
- ┃ ┣ 📜 newton_raphson.exe
+ ┃ ┣ 📜 newton-raphson.cpp
+ ┃ ┣ 📜 newton-raphson.exe
  ┣ 📜 README.md
 ```
 
@@ -31,7 +31,7 @@ To run the numerical methods, simply execute the corresponding executable files:
 ```bash
 ./Bisection-Method/bisection_method.exe
 ./Regula-Falsi/regula_falsi.exe
-./Newton-Raphson/newton_raphson.exe
+./Newton-Raphson/newton-raphson.exe
 ```
 Ensure you have the necessary environment to run compiled C++ programs.
 
