@@ -15,24 +15,46 @@ Each method is implemented with clear structure and comments to ensure readabili
 ```
 📦 Numerical-Analysis
  ┣ 📂 Bisection-Method
+ ┃ ┣ 📜 bisection_method
  ┃ ┣ 📜 bisection_method.cpp
  ┃ ┣ 📜 bisection_method.exe
  ┣ 📂 Regula-Falsi
+ ┃ ┣ 📜 regula_falsi
  ┃ ┣ 📜 regula_falsi.cpp
  ┃ ┣ 📜 regula_falsi.exe
  ┣ 📂 Newton-Raphson
- ┃ ┣ 📜 newton-raphson.cpp
- ┃ ┣ 📜 newton-raphson.exe
+ ┃ ┣ 📜 newton_raphson
+ ┃ ┣ 📜 newton_raphson.cpp
+ ┃ ┣ 📜 newton_raphson.exe
  ┣ 📜 README.md
 ```
 
 ## 🛠️ How to Use
 To run the numerical methods, simply execute the corresponding executable files:
+
+**Windows:**
 ```bash
 ./Bisection-Method/bisection_method.exe
 ./Regula-Falsi/regula_falsi.exe
-./Newton-Raphson/newton-raphson.exe
+./Newton-Raphson/newton_raphson.exe
 ```
+
+**In Linux:**
+```bash
+./Bisection-Method/bisection_method
+./Regula-Falsi/regula_falsi
+./Newton-Raphson/newton_raphson
+```
+
+**Note:**
+To solve for specific functions, you must edit the source code cand change the functions yourself.
+
+Compile using:
+
+```bash
+g++ filename.cpp -o filename.exe
+```
+
 Ensure you have the necessary environment to run compiled C++ programs.
 
 ## 📌 Future Additions
