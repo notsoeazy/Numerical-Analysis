@@ -21,8 +21,8 @@ Each method is implemented with clear structure and comments to ensure readabili
  ┃ ┣ 📜 regula_falsi.cpp
  ┃ ┣ 📜 regula_falsi.exe
  ┣ 📂 Newton-Raphson
- ┃ ┣ 📜 newton-raphson.cpp
- ┃ ┣ 📜 newton-raphson.exe
+ ┃ ┣ 📜 newton_raphson.cpp
+ ┃ ┣ 📜 newton_raphson.exe
  ┣ 📜 README.md
 ```
 
