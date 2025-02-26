@@ -8,6 +8,7 @@ This repository serves as a collection of numerical methods used to find roots o
 - 🔹 **Bisection Method**
 - 🔹 **Regula Falsi Method**
 - 🔹 **Newton Raphson Method**
+- 🔹 **Secant Method**
 
 Each method is implemented with clear structure and comments to ensure readability and ease of understanding.
 
@@ -26,6 +27,10 @@ Each method is implemented with clear structure and comments to ensure readabili
  ┃ ┣ 📜 newton_raphson
  ┃ ┣ 📜 newton_raphson.cpp
  ┃ ┣ 📜 newton_raphson.exe
+ ┣ 📂 Secant-Method
+ ┃ ┣ 📜 secant_method
+ ┃ ┣ 📜 secant_method.cpp
+ ┃ ┣ 📜 secant_method.exe
  ┣ 📜 README.md
 ```
 
@@ -37,6 +42,7 @@ To run the numerical methods, simply execute the corresponding executable files:
 ./Bisection-Method/bisection_method.exe
 ./Regula-Falsi/regula_falsi.exe
 ./Newton-Raphson/newton_raphson.exe
+./Secant-Method/secant_method.exe
 ```
 
 **In Linux:**
@@ -44,6 +50,7 @@ To run the numerical methods, simply execute the corresponding executable files:
 ./Bisection-Method/bisection_method
 ./Regula-Falsi/regula_falsi
 ./Newton-Raphson/newton_raphson
+./Secant-Method/secant_method
 ```
 
 **Note:**
@@ -58,7 +65,7 @@ g++ filename.cpp -o filename.exe
 Ensure you have the necessary environment to run compiled C++ programs.
 
 ## 📌 Future Additions
-✅ More numerical methods such as Secant Method.
+✅ Improve code style consistency.
 ✅ Improved visualizations for results.
 
 ## 💡 Contributions
