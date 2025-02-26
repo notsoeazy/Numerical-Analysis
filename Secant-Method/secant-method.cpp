@@ -21,8 +21,9 @@ void SecantMethod(double (*ptr)(const double&)){
         std::cout << "Enter Xi: ";
         std::cin >> Xi;
 
-    } while ([](bool Xi, bool XiPrev) -> bool{
+    } while ([](double Xi, double XiPrev) -> bool{
         if(Xi == XiPrev){
+            std::cout << Xi << XiPrev;
             std::cout << "Enter another Interval...\n";
             return true;
         }
@@ -51,16 +52,46 @@ void SecantMethod(double (*ptr)(const double&)){
 
     } while (fabs(fXi) > accuracy);
 
-    std::cout << "\nerations: " << itr << std::endl;
+    std::cout << "\nIrations: " << itr << std::endl;
     std::cout << "Root: " << XiNew << std::endl;
 };
 
-// f(x) = x^3 - x^2 + e^-x
+
+// f(x) = x^5 -21x^2 -8x^3 -4x^4 -28x + 60
+double f1(const double& x){
+    return pow(x, 5) - (21 * pow(x, 2)) - (8 * pow(x, 3)) - (4 * pow(x, 4)) - (28 * x) + 60;
+}
+
+// f(x) = x^3 - x^2 + e^x
 double f2(const double& x){
-    return pow(x, 3) - pow(x, 2) + exp(-1 * x);
+    return pow(x, 3) - pow(x, 2) + exp(x);
 };
 
 int main(){
-    SecantMethod(f2);
+    std::cout << "----Secant Method----\n";
+
+    std::cout << "Choose function:"
+              << "\n1. f(x) = x^5 -21x^2 -8x^3 -4x^4 -28x + 60"
+              << "\n2. f(x) = x^3 - x^2 + e^x"
+              << "\n-> ";
+    int choice;
+
+    std::cin >> choice;
+
+    switch (choice)
+    {
+    case 1:
+        std::cout << "f(x) = x^5 -21x^2 -8x^3 -4x^4 -28x + 60\n";
+        SecantMethod(f1);
+        break;
+    case 2:
+        std::cout << "f(x) = x^3 - x^2 + e^x\n";
+        SecantMethod(f2);
+        break;
+    default:
+        std::cout<< "byee!!!\n";
+        break;
+    }
+
     return 0;
 }
