@@ -6,6 +6,7 @@
 
 void MullerMethod(std::complex<double> (*f)(const std::complex<double>&)){
     std::complex<double> x0, x1, x2, x3, fx0, fx1, fx2, fx3, h0, h1, d0, d1, a, b, c;
+    std::complex<double> discriminant;
     int itr = 0;
     double accuracy = 1e-11;
 
@@ -43,19 +44,20 @@ void MullerMethod(std::complex<double> (*f)(const std::complex<double>&)){
         b = (a * h1) + d1;
         c = fx2;
 
-        std::complex<double> discriminant = sqrt(std::pow(b, 2) - (4.0 * a * c));
+        discriminant = sqrt(std::pow(b, 2) - (4.0 * a * c));
 
-        if(abs(b + discriminant) > abs(b - discriminant)){
-            x3 = x2 + (-2.0 * c)/(b + discriminant); 
-        } else {
-            x3 = x2 + (-2.0 * c)/(b - discriminant); 
-        }
-        //compare kung alin masmalapit sa x2, yun gagamitin na x3
-        // if (fabs(b + sqrt(std::pow(b, 2) - (4.0 * a * c)) > abs(b - sqrt(std::pow(b, 2) - (4.0 * a * c))){
-        //     x3 = x2 + (-2.0 * c)/(b + (sqrt(std::pow(b, 2) - (4.0 * a * c)))); 
+        // if(abs(b + discriminant) > abs(b - discriminant)){
+        //     x3 = x2 + (-2.0 * c)/(b + discriminant); 
         // } else {
-        //     x3 = x2 + (-2.0 * c)/(b - (sqrt(std::pow(b, 2) - (4.0 * a * c)))); 
+        //     x3 = x2 + (-2.0 * c)/(b - discriminant); 
         // }
+
+        std::complex<double> x3pos = x2 + (-2.0 * c)/(b + discriminant);
+        std::complex<double> x3neg = x2 + (-2.0 * c)/(b - discriminant);
+
+        //compare kung alin masmalapit sa x2, yun gagamitin na x3
+        (fabs(x3pos - x2) < fabs(x3neg - x2)) ? x3 = x3pos : x3 = x3neg;
+
         
         std::cout << ++itr << "\t"
                   << x0 << "\t\t"
@@ -103,36 +105,33 @@ std::complex<double> f3(const std::complex<double>& x){
 int main(){
     std::cout << "----Muller Method----\n";
 
-    // std::cout << "Choose function:"
-    //           << "\n1. f(x) = 10.44x^2 + x^4 + 12.96"
-    //           << "\n2. f(x) = x^4 + 2x^3 -7x^2 -8x + 12"
-    //           << "\n3. f(x) = x^3 - 4.5x^2 + 0.86x + 9.24"
-    //           << "\n-> ";
-    // int choice;
+    std::cout << "Choose function:"
+              << "\n1. f(x) = 10.44x^2 + x^4 + 12.96"
+              << "\n2. f(x) = x^4 + 2x^3 -7x^2 -8x + 12"
+              << "\n3. f(x) = x^3 - 4.5x^2 + 0.86x + 9.24"
+              << "\n-> ";
+    int choice;
 
-    // std::cin >> choice;
+    std::cin >> choice;
 
-    // switch (choice)
-    // {
-    // case 1:
-    //     std::cout << "f(x) = 10.44x^2 + x^4 + 12.96\n";
-    //     MullerMethod(f1);
-    //     break;
-    // case 2:
-    //     std::cout << "f(x) = x^4 + 2x^3 -7x^2 -8x + 12\n";
-    //     MullerMethod(f2);
-    //     break;
-    // case 3:
-    //     std::cout << "f(x) = x^3 - 4.5x^2 + 0.86x + 9.24\n";
-    //     MullerMethod(f3);
-    //     break;
-    // default:
-    //     std::cout<< "byee!!!\n";
-    //     break;
-    // }
-    
-     std::cout << "f(x) = x^3 - 4.5x^2 + 0.86x + 9.24\n";
-    MullerMethod(f3);
+    switch (choice)
+    {
+    case 1:
+        std::cout << "f(x) = 10.44x^2 + x^4 + 12.96\n";
+        MullerMethod(f1);
+        break;
+    case 2:
+        std::cout << "f(x) = x^4 + 2x^3 -7x^2 -8x + 12\n";
+        MullerMethod(f2);
+        break;
+    case 3:
+        std::cout << "f(x) = x^3 - 4.5x^2 + 0.86x + 9.24\n";
+        MullerMethod(f3);
+        break;
+    default:
+        std::cout<< "byee!!!\n";
+        break;
+    }
     
     return 0;
 }
