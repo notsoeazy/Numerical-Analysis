@@ -9,6 +9,7 @@ This repository serves as a collection of numerical methods used to find roots o
 - 🔹 **Regula Falsi Method**
 - 🔹 **Newton Raphson Method**
 - 🔹 **Secant Method**
+- 🔹 **Muller's Method**
 
 Each method is implemented with clear structure and comments to ensure readability and ease of understanding.
 
@@ -23,6 +24,10 @@ Each method is implemented with clear structure and comments to ensure readabili
  ┃ ┣ 📜 regula_falsi
  ┃ ┣ 📜 regula_falsi.cpp
  ┃ ┣ 📜 regula_falsi.exe
+ ┣ 📂 Muller-Method
+ ┃ ┣ 📜 muller_method
+ ┃ ┣ 📜 muller_method.cpp
+ ┃ ┣ 📜 muller_method.exe
  ┣ 📂 Newton-Raphson
  ┃ ┣ 📜 newton_raphson
  ┃ ┣ 📜 newton_raphson.cpp
@@ -43,6 +48,7 @@ To run the numerical methods, simply execute the corresponding executable files:
 ./Regula-Falsi/regula_falsi.exe
 ./Newton-Raphson/newton_raphson.exe
 ./Secant-Method/secant_method.exe
+./Muller_method/muller_method.exe
 ```
 
 **In Linux:**
@@ -51,6 +57,7 @@ To run the numerical methods, simply execute the corresponding executable files:
 ./Regula-Falsi/regula_falsi
 ./Newton-Raphson/newton_raphson
 ./Secant-Method/secant_method
+./Muller-Method/muller_method
 ```
 
 **Note:**
