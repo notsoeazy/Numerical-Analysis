@@ -3,7 +3,7 @@
 #include<iomanip>
 
 
-void SecantMethod(double (*f)(const double& )){
+void SecantMethod(double (*f)(const double& )) {
     const double accuracy = 1e-11;
     int itr = 0;
     double xi, xiPrev, fxi, fxiPrev, xiNew;
@@ -12,14 +12,14 @@ void SecantMethod(double (*f)(const double& )){
     std::cout.setf(std::ios::fixed);
     std::cout.setf(std::ios::right);
 
-    do{
+    do {
         std::cout << "Enter Xi-1: ";
         std::cin >> xiPrev;
         std::cout << "Enter Xi: ";
         std::cin >> xi;
     } while(
-        [](const double& num1, const double& num2) -> bool{
-            if(num1 == num2){
+        [](const double& num1, const double& num2) -> bool {
+            if(num1 == num2) {
                 std::cout << "Enter again...\n";
                 return true;
             } else {return false;}
@@ -34,7 +34,7 @@ void SecantMethod(double (*f)(const double& )){
               << std::setw(20) << "Xi+1"
               << std::endl;
 
-    do{
+    do {
         fxi = f(xi);
         fxiPrev = f(xiPrev);
         xiNew = xi - (fxi * (xi - xiPrev)/(fxi - fxiPrev));
@@ -47,15 +47,24 @@ void SecantMethod(double (*f)(const double& )){
                   << std::endl;
         xiPrev = xi;
         xi = xiNew;
-    } while(fabs(f(xiNew)) > accuracy);
+        if(fxi == 0) {
+            xiNew = xi;
+            break;
+        } else if(fxiPrev == 0) {
+            xiNew = xiPrev;
+            break;
+        } else if(f(xiNew) == 0) {
+            break;
+        }
+    } while(fabs(f(xiPrev - xiNew)) > accuracy);
     std::cout << "\nThe root is " << xiNew 
               << "\nFounf in " << itr << " iterations.\n";
-}
+};
 
 // f(x) = x^5 -21x^2 -8x^3 -4x^4 -28x + 60
 double f1(const double& x){
     return pow(x, 5) - (21 * pow(x, 2)) - (8 * pow(x, 3)) - (4 * pow(x, 4)) - (28 * x) + 60;
-}
+};
 // f(x) = x^3 - x^2 + e^x
 double f2(const double& x){
     return pow(x, 3) - pow(x, 2) + exp(x);
@@ -69,7 +78,6 @@ int main(){
               << "-> ";
     int c;
     std::cin >> c;
-
     switch(c)
     {
         case 1:
@@ -81,7 +89,6 @@ int main(){
         dafault:
         break;
     }
-    
     std::cout << "\nBye bye!\n";
     return 0;
 }
