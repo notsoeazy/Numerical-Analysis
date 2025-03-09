@@ -5,7 +5,7 @@
 void RegulaFalsi(double (*f)(const double& )) {
     double a, b, c, fa, fb, fc;
     int itr = 0;
-    const double accuracy = 1e-10;
+    const double accuracy = 1e-11;
 
     std::cout.precision(10);
     std::cout.setf(std::ios::fixed);
@@ -35,6 +35,15 @@ void RegulaFalsi(double (*f)(const double& )) {
     do {
         fa = f(a);
         fb = f(b);
+        c = b - ((fb * (a - b)) / (fa - fb));
+        fc = f(c);
+        std::cout << std::setw(5) << ++itr
+        << std::setw(20) << a
+        << std::setw(20) << b
+        << std::setw(20) << fa
+        << std::setw(20) << fb
+        << std::setw(20) << c
+        << std::setw(20) << fc << "\n";
         if(fa == 0) {
             c = a;
             break;
@@ -42,15 +51,6 @@ void RegulaFalsi(double (*f)(const double& )) {
             c = b;
             break;
         }
-        c = b - ((fb * (a - b)) / (fa - fb));
-        fc = f(c);
-        std::cout << std::setw(5) << ++itr
-                  << std::setw(20) << a
-                  << std::setw(20) << b
-                  << std::setw(20) << fa
-                  << std::setw(20) << fb
-                  << std::setw(20) << c
-                  << std::setw(20) << fc << "\n";
         (fa * fc) < 0 ? b = c : a = c;
     } while(fabs(fc) > accuracy);
     std::cout << "The root is " << c << "\nFound after " << itr << " iterations.\n";
