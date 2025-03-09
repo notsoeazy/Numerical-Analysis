@@ -3,13 +3,13 @@
 #include<iomanip>
 
 void RegulaFalsi(double (*f)(const double& )) {
-    double a, b, c, fa, fb, fc;
+    double a, b, c, fa, fb, fc, cprev;
     int itr = 0;
-    const double accuracy = 1e-11;
+    const double accuracy = 1e-10;
 
     std::cout.precision(10);
     std::cout.setf(std::ios::fixed);
-
+    
     do {
         std::cout << "Enter lower interval: ";
         std::cin >> a;
@@ -23,18 +23,19 @@ void RegulaFalsi(double (*f)(const double& )) {
             } else {return false;};
         }(f(a), f(b))
     );
-
+    
     std::cout << std::setw(5) << "itr"
-              << std::setw(20) << "lower"
-              << std::setw(20) << "upper"
-              << std::setw(20) << "f(l)"
-              << std::setw(20) << "f(u)"
-              << std::setw(20) << "x"
-              << std::setw(20) << "fx\n";
-
+    << std::setw(20) << "lower"
+    << std::setw(20) << "upper"
+    << std::setw(20) << "f(l)"
+    << std::setw(20) << "f(u)"
+    << std::setw(20) << "x"
+    << std::setw(20) << "fx\n";
+    
     do {
         fa = f(a);
         fb = f(b);
+        cprev = c;
         c = b - ((fb * (a - b)) / (fa - fb));
         fc = f(c);
         std::cout << std::setw(5) << ++itr
@@ -50,9 +51,10 @@ void RegulaFalsi(double (*f)(const double& )) {
         } else if(fb == 0) {
             c = b;
             break;
-        }
+        } else if(fc == 0) {break;}
         (fa * fc) < 0 ? b = c : a = c;
-    } while(fabs(fc) > accuracy);
+    // } while(fabs(fc) > accuracy);
+    } while((itr > 1) ? fabs(cprev - c) > accuracy : true);
     std::cout << "The root is " << c << "\nFound after " << itr << " iterations.\n";
 }
 
