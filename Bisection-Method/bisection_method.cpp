@@ -39,12 +39,19 @@ void BisectionMethod(double (*f)(const double& )){
         c = (a + b) / 2;
         fc = f(c);
         std::cout << std::setw(5) << ++itr
-                  << std::setw(20) << a
-                  << std::setw(20) << b
-                  << std::setw(20) << fa
-                  << std::setw(20) << fb
-                  << std::setw(20) << c
-                  << std::setw(20) << fc << "\n";
+        << std::setw(20) << a
+        << std::setw(20) << b
+        << std::setw(20) << fa
+        << std::setw(20) << fb
+        << std::setw(20) << c
+        << std::setw(20) << fc << "\n";
+        if(fa == 0) {
+            c = a;
+            break;
+        } else if(fb == 0) {
+            c = b;
+            break;
+        }
         (fa * fc) < 0 ? b = c : a = c;
     } while(fabs(fc) > accuracy);
     std::cout << "\nThe root is " << c << "\nFound after " << itr << " iterations.\n";
