@@ -2,125 +2,90 @@
 #include<cmath>
 #include<iomanip>
 
-class BisectionMethod
-{
-public:
-    BisectionMethod();
-    void SetInterval(double (*f)(double));
-    void SolveRoot(double (*f)(double));
-private:
-    int numOfItr;
-    double Xa, Xb, Xc, fXa, fXb, fXc;
-    double accuracy;
-    double origLowInterval;
-    double origUpInterval;
-};
 
-double function1(double x){
+void BisectionMethod(double (*f)(const double& )){
+    double a, b, c, fa, fb, fc;
+    int itr = 0;
+    const double accuracy = 1e-10;
+
+    std::cout.precision(10);
+    std::cout.setf(std::ios::fixed);
+
+    do{
+        std::cout << "Enter lower interval: ";
+        std::cin >> a;
+        std::cout << "Enter upper interval: ";
+        std::cin >> b;
+    }while(
+        [](const double& n1, const double& n2) -> bool{
+            if(n1 * n2 > 0){
+                std::cout << "No roots between. Try again...\n";
+                return true;
+            } else {return false;}
+        }(f(a), f(b))
+    );
+
+    std::cout << std::setw(5) << "itr"
+              << std::setw(20) << "lower"
+              << std::setw(20) << "upper"
+              << std::setw(20) << "f(l)"
+              << std::setw(20) << "f(u)"
+              << std::setw(20) << "x"
+              << std::setw(20) << "f(x)\n";
+
+    do{
+        fa = f(a);
+        fb = f(b);
+        c = (a + b) / 2;
+        fc = f(c);
+        std::cout << std::setw(5) << ++itr
+                  << std::setw(20) << a
+                  << std::setw(20) << b
+                  << std::setw(20) << fa
+                  << std::setw(20) << fb
+                  << std::setw(20) << c
+                  << std::setw(20) << fc << "\n";
+        (fa * fc) < 0 ? b = c : a = c;
+    } while(fabs(fc) > accuracy);
+    std::cout << "\nThe root is " << c << "\nFound after " << itr << " iterations.\n";
+}
+
+double f1(const double& x){
     return x - exp(-1 * pow(x, 2));
-}
-double function2(double x){
+};
+double f2(const double& x){
     return pow(x, 4) + (2 * pow(x, 3)) - (7 * pow(x, 2)) - (8 * x) + 12;
-}
-double function3(double x){
+};
+double f3(const double& x){
     return pow(x, 3) - (0.4 * pow(x, 2)) -(8.77 * x) + 8.8;
-}
+};
 
 int main(){
-    std::cout << std::setprecision(10) << std::fixed;
-
-    std::cout << "Choose function:"
-              << "\n1. f(x) = x - e^(-x^2)"
-              << "\n2. f(x) = x^4 + 2x^3 - 7x^2 - 8x + 12"
-              << "\n3. f(x) = x^3 - 0.4x^2 - 8.77x + 8.8"
-              << "\n-> ";
-    
-    BisectionMethod solution;
-    int choice;
-    std::cin >> choice;
-
-    if(choice == 1){
-        std::cout << "f(x) = x - e^(-x^2)" << std::endl;
-        solution.SolveRoot(function1);
+    std::cout << "---- B I S E C T I O N   M E T H O D ----\n"
+              << "Choose function:\n"
+              << "\t1. f(x)=x - e^(-x2)\n"    
+              << "\t2. f(x)=x^4 + 2x^3 - 7x^2 -8x - 12\n"    
+              << "\t3. f(x)=x^3 - 0.4x^2 - 8.77x + 8.8\n"
+              << "-> ";
+    int c = 0;
+    std::cin >> c;
+    switch(c)
+    {
+        case 1:
+            std::cout << "\nf(x)=x - e^(-x2)\n";        
+            BisectionMethod(f1);
+            break;
+        case 2:
+            std::cout << "\nf(x)=x^4 + 2x^3 - 7x^2 -8x - 12\n";        
+            BisectionMethod(f2);
+            break;
+        case 3:
+            std::cout << "\nf(x)=x^3 - 0.4x^2 - 8.77x + 8.8\n";        
+            BisectionMethod(f3);
+            break;
+        default:
+            break;
     }
-    else if(choice == 2){
-        std::cout << "f(x) = x^4 + 2x^3 - 7x^2 - 8x + 12" << std::endl;
-        solution.SolveRoot(function2);
-    }
-    else if(choice == 3){
-        std::cout << "f(x) = x^3 - 0.4x^2 - 8.77x + 8.8" << std::endl;
-        solution.SolveRoot(function3);
-    }
-    else {
-        std::cout << "\nExiting Program...";
-    }
-    std::cout << "\n---------------------------------------------------------------------------\n";
-
+    std::cout << "Bye!\n";
     return 0;
-}
-
-BisectionMethod::BisectionMethod(){
-    numOfItr = 0;
-    accuracy = 0.0000000001;
-};
-
-void BisectionMethod::SetInterval(double (*f)(double)){
-    while(true){
-        std::cout << "Enter guess interval:\n";
-        std::cout << "Lower interval: ";
-        std::cin >> Xa;
-        std::cout << "Upper interval: ";
-        std::cin >> Xb;
-        if ((f(Xa) * f(Xb)) <= 0){
-            origLowInterval = Xa;
-            origUpInterval = Xb;
-            break;
-        }
-        else{
-            std::cout << "No roots in the interval, enter another interval...\n";
-        }
-    }
-};
-
-void BisectionMethod::SolveRoot(double (*f)(double)){
-    SetInterval(f);
-
-    std::cout << "#itr" << "\t" << "Xa" << "\t\t\t" << "f(Xa)" << "\t\t\t" << "Xb" << "\t\t\t" << "f(Xb)" << "\t\t\t" << "Xc" << "\t\t\t" << "f(Xc)" << std::endl;
-
-    while(fabs(Xa - Xb) > accuracy){
-        numOfItr++;
-
-        Xc = (Xa + Xb)/2;
-        fXa = f(Xa);
-        fXb = f(Xb);
-        fXc = f(Xc);
-
-        std::cout << numOfItr << "\t" << Xa << "\t\t" << fXa << "\t\t" << Xb << "\t\t" << fXb << "\t\t" << Xc << "\t\t" << fXc << std::endl;
-
-        //check if mayroon zero, matic root siya
-        if(fXa == 0){
-            Xc = Xa;
-            break;
-        }
-        if(fXb == 0){
-            Xc = Xb;
-            break;
-        }
-        if(fXc == 0){
-            break;
-        }
-
-        //swap intervals
-        if(fXa * fXc < 0){
-            Xb = Xc;
-        }
-        else{
-            Xa = Xc;
-        }
-    }
-    std::cout << "---------------------------------------------------------------------------\n";
-    std::cout << "Starting Interval: [" << origLowInterval << ", " << origUpInterval << "]" << std::endl;
-    std::cout << "Ending Interval: [" << Xa << ", " << Xb << "]" << std::endl;
-    std::cout << "Number of Iterations: " << numOfItr << std::endl;
-    std::cout << "Root is " << Xc << std::endl;
 }
