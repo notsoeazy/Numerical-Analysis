@@ -16,15 +16,17 @@ int main(int argc, char* argv[])
     // Declare the  matrix
     const int ROW = 5;
     const int COLUMN = 6;
-    // // Problem 1
+    // --------- COMMENT PROBLEM 1 MATRIX--------
+    // Problem 1
     // double matrix[ROW][COLUMN] =
     // {
-    //     {8, -2, -1, 0, 0, 5},
-    //     {-2, 9, -4, -1, 0, 2},
-    //     {-1, -3, 7, -1, -2, 1},
-    //     {0, -4, 2, 12, -5, 1},
-    //     {0, 0, -7, -3, 15, 5}
-    // };
+        //     {8, -2, -1, 0, 0, 5},
+        //     {-2, 9, -4, -1, 0, 2},
+        //     {-1, -3, 7, -1, -2, 1},
+        //     {0, -4, 2, 12, -5, 1},
+        //     {0, 0, -7, -3, 15, 5}
+        // };
+    // --------- COMMENT PROBLEM 2 MATRIX--------
     // Problem 2
     double matrix[ROW][COLUMN] =
     {
