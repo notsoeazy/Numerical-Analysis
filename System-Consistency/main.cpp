@@ -12,7 +12,6 @@ void printMatrix(const std::vector<std::vector<double>>& matrix);
 double getDeterminant(const std::vector<std::vector<double>>& matrix);
 int getRank(std::vector<std::vector<double>> matrix);
 bool isRowZero(const std::vector<double>& row, int size);
-void eliminateBelow(std::vector<std::vector<double>>& matrix, int pivot_row, int matrix_size);
 
 int main()
 {
