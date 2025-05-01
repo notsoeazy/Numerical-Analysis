@@ -12,6 +12,7 @@ void printMatrix(const std::vector<std::vector<double>>& matrix);
 double getDeterminant(const std::vector<std::vector<double>>& matrix);
 int getRank(std::vector<std::vector<double>> matrix);
 bool isRowZero(const std::vector<double>& row);
+std::string getConsistency(std::vector<std::vector<double>> matrix);
 
 int main()
 {
@@ -56,18 +57,19 @@ int main()
     if (matrix.empty() || matrix[0].empty()) {
         throw std::invalid_argument("Empty matrix");
     }
-    printMatrix(matrix);
+    // printMatrix(matrix);
     // Get the values
-    double determinant = getDeterminant(matrix);
     int rank = getRank(matrix);
+    std::string consistency = getConsistency(matrix);
+    double determinant = getDeterminant(matrix);
     // Print the values
     std::cout << "\nResult: Rank of the Matrix = " << rank << "\n"
-              << "\tSystem consistency = " << "\n"
+              << "\tSystem consistency = " << consistency << "\n"
               << "\tSystem Determinant = " << determinant << "\n"
               << std::endl;
     return 0;
 }
-
+// For debugging purposes
 void printMatrix(const std::vector<std::vector<double>>& matrix)
 {
     int row = matrix.size();
@@ -182,4 +184,35 @@ int getRank(std::vector<std::vector<double>> matrix)
         }
     }
     return rank;
+}
+
+std::string getConsistency(std::vector<std::vector<double>> matrix)
+{
+    int row_size = matrix.size();
+    int coef_matrix_col_size = matrix[0].size() - 1;
+    int n = row_size;
+    std::vector<std::vector<double>> coefficient_matrix(row_size, std::vector<double>(coef_matrix_col_size));
+    // Copy the coefficients from augmented matrix
+    for (int row = 0; row < row_size; row++)
+    {
+        for (int col = 0; col < coef_matrix_col_size; col++)
+        {
+            coefficient_matrix[row][col] = matrix[row][col];
+        }
+    }
+    int augmented_rank = getRank(matrix);
+    int coefficient_rank = getRank(coefficient_matrix);
+    // Check for consistency
+    if ((augmented_rank == coefficient_rank) && (augmented_rank == n))
+    {
+        return "has unique solution";
+    }
+    else if ((augmented_rank == coefficient_rank) && (augmented_rank < n))
+    {
+        return "has infinite solution";
+    }
+    else
+    {
+        return "has no solution";
+    }
 }
