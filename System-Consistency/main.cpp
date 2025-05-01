@@ -11,7 +11,7 @@ const double ACCURACY = 1e-9;
 void printMatrix(const std::vector<std::vector<double>>& matrix);
 double getDeterminant(const std::vector<std::vector<double>>& matrix);
 int getRank(std::vector<std::vector<double>> matrix);
-bool isRowZero(const std::vector<double>& row, int size);
+bool isRowZero(const std::vector<double>& row);
 
 int main()
 {
@@ -61,8 +61,8 @@ int main()
     double determinant = getDeterminant(matrix);
     int rank = getRank(matrix);
     // Print the values
-    std::cout << "\nResult:\t Rank of the Matrix = " << rank << "\n"
-              << "\tSystem consistency = "
+    std::cout << "\nResult: Rank of the Matrix = " << rank << "\n"
+              << "\tSystem consistency = " << "\n"
               << "\tSystem Determinant = " << determinant << "\n"
               << std::endl;
     return 0;
@@ -119,14 +119,15 @@ double getDeterminant(const std::vector<std::vector<double>>& matrix)
         // Recursive call the getDeterminant() for the sub matrices
         double sub_matrix_determinant = getDeterminant(sub_matrix);
         // Sum the cofactor
-        determinant += (source_row % 2 ? 1 : -1) * matrix[source_row][0] * sub_matrix_determinant;
+        determinant += (source_row % 2 == 0 ? 1 : -1) * matrix[source_row][0] * sub_matrix_determinant;
     }
     return determinant;
 }
 
-bool isRowZero(const std::vector<double>& row, int size)
+bool isRowZero(const std::vector<double>& row)
 {
-    for (int col = 0; col < size; col++)
+    int col_size = row.size();
+    for (int col = 0; col < col_size; col++)
     {
         if (std::fabs(row[col]) >= ACCURACY)
         {
@@ -138,17 +139,18 @@ bool isRowZero(const std::vector<double>& row, int size)
 
 int getRank(std::vector<std::vector<double>> matrix) 
 {
-    int matrix_size = matrix.size();
-    int rank = matrix_size;
+    int row_size = matrix.size();
+    int col_size = matrix[0].size();
+    int rank = row_size;
 
     // Convert matrix to row echelon form
-    for (int pivot_row = 0; pivot_row < matrix_size; pivot_row++) 
+    for (int pivot_row = 0; pivot_row < row_size; pivot_row++) 
     {
         // Find and establish pivot
         if (std::fabs(matrix[pivot_row][pivot_row]) < ACCURACY) 
         {
             bool found_nonzero_pivot = false;
-            for (int candidate_row = pivot_row + 1; candidate_row < matrix_size; candidate_row++)
+            for (int candidate_row = pivot_row + 1; candidate_row < row_size; candidate_row++)
             {
                 if (std::fabs(matrix[candidate_row][pivot_row]) >= ACCURACY)
                 {
@@ -160,21 +162,21 @@ int getRank(std::vector<std::vector<double>> matrix)
             if (!found_nonzero_pivot) continue;
         }
         // Eliminate entries below pivot
-        for (int row_below = pivot_row + 1; row_below < matrix_size; row_below++)
+        for (int next_row = pivot_row + 1; next_row < row_size; next_row++)
         {
             if (std::fabs(matrix[pivot_row][pivot_row]) < ACCURACY)
                 continue;
-            double multiplier = matrix[row_below][pivot_row] / matrix[pivot_row][pivot_row];
-            for (int col = 0; col <= matrix_size; col++) 
+            double multiplier = matrix[next_row][pivot_row] / matrix[pivot_row][pivot_row];
+            for (int col = 0; col < col_size; col++) 
             {
-                matrix[row_below][col] -= multiplier * matrix[pivot_row][col];
+                matrix[next_row][col] -= multiplier * matrix[pivot_row][col];
             }
         }   
     }
     // Count non-zero rows to determine rank
-    for (int row = 0; row < matrix_size; row++) 
+    for (int row = 0; row < row_size; row++) 
     {
-        if (isRowZero(matrix[row], matrix_size)) 
+        if (isRowZero(matrix[row])) 
         {
             rank--;
         }
