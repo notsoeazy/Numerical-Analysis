@@ -49,11 +49,11 @@ int main()
     }
     printMatrix(matrix);
 
-    getDeterminant(matrix, matrix_size);
+    double determinant = getDeterminant(matrix, matrix_size);
 
     std::cout << "\nResult:\t Rank of the Matrix = " 
               << "\tSystem consistency = "
-              << "\tSystem Determinant = "
+              << "\tSystem Determinant = " << determinant << "\n"
               << std::endl;
     return 0;
 }
